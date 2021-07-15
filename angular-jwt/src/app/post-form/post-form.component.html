@@ -1,0 +1,92 @@
+<div class="container">
+  <h1>Registration Form</h1>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+    <div class="form-group">
+      <label for="" id="lbl">First name</label>
+      <input type="text" #firstName="ngModel" [(ngModel)]="user.FirstName" name="firstName" class="form-control"
+        placeholder="Enter firstname" [class.is-invalid]="firstName.invalid && firstName.touched" required />
+      <small class="text-danger" [class.d-none]="firstName.untouched ||firstName.valid">This is require
+        field</small>
+    </div>
+
+    <div class="form-group">
+      <label for="" id="lbl">Last name</label>
+      <input type="text" #lastName="ngModel" [(ngModel)]="user.LastName" name="lastName" class="form-control"
+        placeholder="Enter lastname" [class.is-invalid]="lastName.invalid && lastName.touched" required />
+      <small class="text-danger" [class.d-none]="lastName.untouched ||lastName.valid">This is require
+        field</small>
+    </div>
+    <div class="form-group">
+      <label for="" id="lbl">Date Of Joining</label><br>
+      <div>
+        <input [matDatepicker]="basicDatepicker" placeholder="Enter the Date" #DateOfJoining="ngModel"
+          [(ngModel)]="user.DateOfJoining" name="DateOfJoining"
+          [class.is-invalid]="DateOfJoining.invalid && DateOfJoining.touched" required>
+        <small class="text-danger" [class.d-none]="DateOfJoining.untouched || DateOfJoining.valid">This is
+          require
+          field</small>
+        <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #basicDatepicker></mat-datepicker>
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+      <label for="age" id="lbl">Age</label>
+      <input type="number" [(ngModel)]="user.Age" name="Age" #Age="ngModel" class="form-control"
+        placeholder="Enter Age" min="20" max="60" [class.is-invalid]="Age.invalid && Age.touched" required />
+      <div *ngIf="Age.errors && (Age.touched || Age.invalid)">
+        <small class="text-danger" [class.d-none]="Age.untouched ||Age.valid">This is
+          require
+          field</small>
+        <small class="text-danger" *ngIf="Age.errors.invalid">plz enter the age correctly</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="" id="lbl">Email</label>
+      <input type="email" #email="ngModel" [(ngModel)]="user.Email" name="email" class="form-control"
+        placeholder="Enter email" [class.is-invalid]="email.invalid && email.touched" required />
+      <small class="text-danger" [class.d-none]="email.untouched ||email.valid">This is require
+        field</small>
+    </div>
+    <div class="form-group">
+      <label for="" id="lbl">Password</label>
+      <input type="password" #password="ngModel" [(ngModel)]="user.Password" name="password" class="form-control"
+        placeholder="Enter password" [class.is-invalid]="password.invalid && password.touched" required />
+      <small class="text-danger" [class.d-none]="password.untouched ||password.valid">This is require
+        field</small>
+    </div>
+
+    <div class="form-group">
+      <label for="" id="lbl">Department</label>
+      <!-- <select class="form-control" name="DepartmentName" #Department="ngModel" [(ngModel)]="user.DepartmentId"
+        (change)='onChange()'>
+        <option value="" disabled selected>Select Department...</option>
+        <option *ngFor="let dept of departments" [value]="dept.departmentId">
+          {{dept.departmentName}}
+        </option>
+      </select> -->
+      <select name="values_of_obj" class="form-control" [(ngModel)]="user.DepartmentId"  
+        (change)="getDesignations(user.DepartmentId)" required>
+  <option *ngFor="let Value of departments"
+          [value]="Value.id">{{Value.departmentName}}</option>    
+</select>
+    </div>
+    <div class="form-group">
+      <label for="" id="lbl">Designation</label>
+      <select class="form-control" name="DesignationName"  [(ngModel)]="user.Designation">
+        <option value="" disabled selected>Select something...</option>
+        <option *ngFor="let designation of designations">
+         {{designation.designationName}}
+        </option>
+
+      </select>
+    </div>
+
+    <input type="button" value="Submit" class="btn btn-dark btn-md"/>
+  </form>
+</div>
